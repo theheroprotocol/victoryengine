@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>The Hero Protocol</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Archivo Black for Latin, Cairo for Arabic -->
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Cairo:wght@900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --hero-bg: #051a0b;
+      --ground-bg: #183c1f;
+      --button-bg: transparent;
+      --button-border: #14ec4d;
+      --hero-text: #14ec4d;
+      --subtitle-text: #a2fcbe;
+      --cloud: #178743;
+      --action-hover: #0a320f;
+      --card-bg: rgba(21,53,35,0.88);
+      --about-bg: #0d3420;
+      --about-heading: #22ffa1;
+      --about-text: #b6ffd2;
+    }
+    body {
+      margin: 0;
+      font-family: 'Archivo Black', Arial, sans-serif;
+      background: var(--hero-bg);
+      color: var(--hero-text);
+      overflow-x: hidden;
+    }
+    .hero {
+      min-height: 520px;
+      background: var(--hero-bg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+    }
+    .cloud {
+      position: absolute;
+      fill: var(--cloud);
+      opacity: 0.38;
+      z-index: 1;
+    }
+    .cloud.c1 { top: 60px; left: 6%; width: 70px; }
+    .cloud.c2 { top: 20px; right: 7%; width: 85px; }
+    .cloud.c3 { top: 80px; right: 50%; width: 40px;}
+    .cloud.c4 { top: 100px; left: 78%; width: 50px;}
+    .hero-content {
+      margin-top: 80px;
+      text-align: center;
+      z-index: 2;
+      position: relative;
+    }
+    .hero-subtitle {
+      color: var(--subtitle-text);
+      font-size: 1.15rem;
+      margin-bottom: 16px;
+      text-shadow: 0 0 4px #0f450e;
+      font-family: monospace, 'Archivo Black', Arial, sans-serif;
+    }
+    .hero-title {
+      font-family: 'Archivo Black', Arial, sans-serif;
+      font-size: 3.8rem;
+      line-height: 0.95;
+      text-transform: uppercase;
+      font-weight: bold;
+      letter-spacing: .04em;
+      color: var(--hero-text);
+      text-shadow: 0 0 6px #10f639, 0 0 2px #13a13f, 2px 2px 0 #021e09;
+    }
+    .hero-action {
+      margin-top: 34px;
+      display: flex;
+      justify-content: center;
+    }
+    .hero-action button {
+      padding: 16px 32px;
+      border: 2px solid var(--button-border);
+      background: var(--button-bg);
+      color: var(--hero-text);
+      font-size: 1.23rem;
+      border-radius: 38px;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: bold;
+      box-shadow: 0 0 8px #14ec4d80;
+      transition: background .16s, color .16s, box-shadow .16s;
+      text-shadow: 0 0 8px #14ec4d;
+    }
+    .hero-action button:hover {
+      background: var(--action-hover);
+      color: #91ff5d;
+      box-shadow: 0 0 24px #11ff1e99;
+    }
+    .game-ground {
+      width: 100vw;
+      height: 44px;
+      position: relative;
+      margin-top: 48px;
+      background: linear-gradient(90deg, #134029 6%, #32b96e 50%, #134029 94%);
+      opacity: 0.88;
+      border-radius: 7px;
+      box-shadow: 0 2px 30px #14ec4d33;
+      z-index: 3;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .fatiha-arabic {
+      width: 96vw;
+      color: #b3ffd2;
+      font-family: 'Cairo', 'Archivo Black', Arial, sans-serif;
+      font-size: 1.1rem;
+      text-align: center;
+      letter-spacing: 0.06em;
+      font-weight: 900;
+      line-height: 1.3;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      opacity: 0.97;
+      text-shadow: 0 1px 8px #145525, 0 0 2px #36e058;
+    }
+
+    /* .fatiha-arabic {
+      width: 96vw;
+      color: #b3ffd2;
+      font-family: 'Cairo', 'Archivo Black', Arial, sans-serif;
+      font-size: 1.4rem;
+      text-align: center;
+      letter-spacing: 0.06em;
+      font-weight: 900;
+      line-height: 1.3;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      direction: rtl;
+      opacity: 0.97;
+      text-shadow: 0 1px 8px #145525, 0 0 2px #36e058;
+      text-transform: none; */
+    }
+    /* About section with a soft vertical gradient for the top */
+    .about-section {
+      width: 100vw;
+      background: linear-gradient(180deg, rgba(5,26,11,0) 0%, #154530 60%, #154530 100%);
+      padding: 80px 0 80px 0;
+      margin: 0;
+      box-shadow: 0 -48px 120px #09261366 inset;
+      transition: background 0.4s;
+    }
+    .about-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 32px;
+      text-align: left;
+    }
+    .about-section h2 {
+      color: #22ffa1;
+      font-size: 2.1rem;
+      letter-spacing: .03em;
+      margin: 0 0 34px 0;
+      font-family: 'Archivo Black', Arial, sans-serif;
+      text-transform: uppercase;
+      text-align: left;
+      text-shadow: 0 4px 32px #22ffa145, 0 0 2px #081805;
+    }
+    .about-section p {
+      color: #c6ffe6;
+      font-family: Arial, sans-serif;
+      font-size: 1.12rem;
+      line-height: 1.72;
+      margin: 0 0 28px 0;
+      text-align: left;
+      text-shadow: 0 1px 4px #1bef7d22;
+      font-weight: 400;
+    }
+    .about-section p:last-child {
+      margin-bottom: 0;
+    }
+    .nft-bg-text {
+      position: absolute;
+      right: 12vw;
+      bottom: 5px;
+      font-size: 6rem;
+      color: #56ff8c;
+      font-family: 'Archivo Black', Arial, sans-serif;
+      opacity: 0.10;
+      letter-spacing: -.01em;
+      text-shadow: 0 0 30px #0a6125, 0 0 2px #14ec4d;
+      pointer-events: none;
+      user-select: none;
+      z-index: 1;
+    }
+    .challenge-card {
+      width: 480px;
+      margin: 56px auto 0 auto;
+      color: #a2fcbe;
+      font-family: monospace, Arial, sans-serif;
+      background: var(--card-bg);
+      padding: 38px 30px 16px 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 30px #0d4420 inset;
+      position: relative;
+    }
+    .challenge-card h2 {
+      margin: 0 0 8px 0;
+      font-size: 1.37rem;
+      font-weight: 600;
+      color: #22ffa1;
+      text-shadow: 0 0 6px #67ffdc, 0 0 2px #081805;
+    }
+    .challenge-card p {
+      font-size: 1rem;
+      color: #b0ffd1;
+    }
+    @media (max-width: 700px) {
+      .about-section { padding: 36px 0; }
+      .about-inner { padding: 0 5vw; }
+      .about-section h2 { font-size: 1.2rem;}
+      .about-section p { font-size: 0.97rem; }
+      .hero-title { font-size: 2.1rem; }
+      .hero-content { margin-top: 40px; }
+      .hero-action button { font-size: 1rem; padding: 12px 18px; }
+      .game-ground { height: 22px; margin-top: 28px; }
+      .fatiha-arabic { font-size: 0.85rem; }
+      .nft-bg-text { font-size: 13vw; right: 4vw; bottom: -6px;}
+      .cloud.c1, .cloud.c2, .cloud.c3, .cloud.c4 { width: 38vw !important; min-width: 28px; }
+      .challenge-card {
+        width: 92vw;
+        max-width: 98vw;
+        margin: 32px auto 0 auto;
+        padding: 20px 6vw 6vw 6vw;
+        font-size: 0.97rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <section class="hero">
+    <svg class="cloud c1" viewBox="0 0 100 40"><ellipse cx="50" cy="20" rx="44" ry="16"/></svg>
+    <svg class="cloud c2" viewBox="0 0 100 40"><ellipse cx="50" cy="20" rx="36" ry="14"/></svg>
+    <svg class="cloud c3" viewBox="0 0 70 30"><ellipse cx="35" cy="15" rx="24" ry="9"/></svg>
+    <svg class="cloud c4" viewBox="0 0 70 30"><ellipse cx="35" cy="15" rx="20" ry="8"/></svg>
+    <div class="hero-content">
+      <div class="hero-subtitle">
+        The victory is already <b>promised</b>; we exist to accelerate it.
+      </div>
+      <div class="hero-title">
+        HERO<br>PROTOCOL
+      </div>
+      <div class="hero-action">
+        <button>Read the Whitepaper</button>
+      </div>
+    </div>
+    <div class="game-ground">
+      <div class="fatiha-arabic">
+        "The Messenger of Allah said: 'The Throne of The Most Merciful trembled upon the death of Sa'd bin Mu'adh.'"
+      </div>
+    </div>
+  </section>
+  <section class="about-section">
+    <div class="about-inner">
+      <h2>About Hero Protocol</h2>
+      <p>
+        The hero protocol will be the Ummahs first unification layer. Inspired by Ethereum, the protocol will be a non-profit foundation that oversees a large decentralized treasury built on-top of Ethereum. The foundation will identify, create and champion projects that are too important or wide-reaching to be owned or controlled by any one group.
+      </p>
+      <p>
+        We aim to create a new paradigm that eliminates the “effort fragmentation” that is so common in our communities, and also eliminate the single point of failure that is seen when a 
+        influential muslim figure dies, or is assassinated. The hero protocol is currently being stewarded by a previous member of the Ethereum Foundation and a PhD holder in Quantum Mechanics.
+      </p>
+    </div>
+  </section>
+  <section class="research-section" style="width:100vw; background: linear-gradient(180deg, rgba(5,26,11,0) 0%, #154530 60%, #154530 100%); padding: 80px 0; margin: 0; box-shadow: 0 -48px 120px #09261366 inset; transition: background 0.4s;">
+  <div class="about-inner">
+    <h2 style="color: #22ffa1; font-size: 2.1rem; letter-spacing: .03em; margin: 0 0 34px 0; font-family: 'Archivo Black', Arial, sans-serif; text-transform: uppercase; text-align: left; text-shadow: 0 4px 32px #22ffa145, 0 0 2px #081805;">
+      Roadmap
+    </h2>
+    <p style="color: #c6ffe6; font-family: Arial, sans-serif; font-size: 1.12rem; line-height: 1.72; margin: 0 0 28px 0; text-align: left; text-shadow: 0 1px 4px #1bef7d22; font-weight: 400;">
+      <b>The two major aspects of the hero protcol are: </b>
+    </p>
+    <p style="color: #c6ffe6; font-family: Arial, sans-serif; font-size: 1.12rem; line-height: 1.72; margin: 0 0 0 0; text-align: left; text-shadow: 0 1px 4px #1bef7d22; font-weight: 400;">
+     1)  A large ETH treasury built from “stake-donations.” When someone makes a stake-donation (e.g., $1,000 in ETH), their ETH isn’t spent, but instead staked on the network to generate yield. Donors can withdraw their original ETH at any time—the treasury only uses the staking rewards (such as 2% annual yield) for funding initiatives.
+    </p>
+    <br>
+    <p style="color: #c6ffe6; font-family: Arial, sans-serif; font-size: 1.12rem; line-height: 1.72; margin: 0 0 0 0; text-align: left; text-shadow: 0 1px 4px #1bef7d22; font-weight: 400;">
+     For example, Octant (an ETH treasury) has 100,000 ETH staked at current prices ($3,700/ETH), earning 2% yield—about $750,000 per month, while donors’ principal remains available for withdrawal. A treasury like this cannot be shut down through goverment control of banks.
+    </p>
+    <br>
+    <p style="color: #c6ffe6; font-family: Arial, sans-serif; font-size: 1.12rem; line-height: 1.72; margin: 0 0 0 0; text-align: left; text-shadow: 0 1px 4px #1bef7d22; font-weight: 400;">
+      2) A foundation that identifies and allocates to causes that are too important or wide-reaching to be owned or controlled by any one group.
+    </p>
+    <br>
+    <p style="color: #c6ffe6; font-family: Arial, sans-serif; font-size: 1.12rem; line-height: 1.72; margin: 0 0 0 0; text-align: left; text-shadow: 0 1px 4px #1bef7d22; font-weight: 400;">
+      As of August 2025, both of these initiatives are being worked on via our Research Forum.
+    </p>
+  </div>
+</section>
+
+</body>
+</html>
